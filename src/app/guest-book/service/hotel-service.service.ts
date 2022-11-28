@@ -31,7 +31,7 @@ export class HotelService {
               guestCount: 2, // jumlah tamu yang menginap dalam 1 kamar
               reservee: 
               {
-                // id: 1,
+                id: 1,
                 name: 'Rizki Prastyo',
                 email: 'rizki@gmail.com',
                 phone: '082784728736'
@@ -45,7 +45,7 @@ export class HotelService {
               guestCount: 2, // jumlah tamu yang menginap dalam 1 kamar
               reservee: 
               {
-                // id: 1,
+                id: 1,
                 name: 'Rizki Prastyo',
                 email: 'rizki@gmail.com',
                 phone: '082784728736'
@@ -59,7 +59,7 @@ export class HotelService {
               guestCount: 2, // jumlah tamu yang menginap dalam 1 kamar
               reservee: 
               {
-                // id: 1,
+                id: 1,
                 name: 'Rizki Prastyo',
                 email: 'rizki@gmail.com',
                 phone: '082784728736'
@@ -95,11 +95,10 @@ export class HotelService {
   save(booking: Book): Observable<void>{
     return new Observable<void>((observer: Observer<void>): void => {
       try {
-        // console.log('data booking baru: ', booking);      
         if(booking.id){
-          this.bookings = this.bookings.map((m) => {
-            if(m.id === booking.id) m = booking
-              return booking
+          this.bookings = this.bookings.map((b) => {
+            if(b.id == booking.id) b = booking
+              return b
             }         
           )
         }

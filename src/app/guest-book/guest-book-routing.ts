@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: GuestBookComponent
+  },
+  {
+    path: ':id',
+    component: GuestBookComponent
   }
 ];
 

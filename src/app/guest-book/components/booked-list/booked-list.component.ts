@@ -26,7 +26,7 @@ export class BookedListComponent implements OnInit, IbookList{
   }
 
   onReserve(booking: Book): void {
-    throw new Error('Method not implemented.');
+    // this.hotelService.get(booking.id).subscribe()
   }
 
   onCheckIn(booking: Book){
