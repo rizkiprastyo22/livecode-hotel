@@ -9,7 +9,7 @@
     </div>
   </form> -->
   <div class="card-body">
-    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="bookingGroup" (ngSubmit)="onSubmitReservation()">
       <div class="input-group">
         <!-- <div class="mb-3 w-100">
           <label for="guestId" class="form-label">Guest ID</label>
@@ -39,10 +39,6 @@
             <label for="guestCount" class="form-label">Guest Count</label>
             <input type="number" class="form-control" formControlName="guestCount" id="guestCount" />
         </div>
-        <div class="mb-3 w-100">
-            <label for="status" class="form-label">Status</label>
-            <input type="text" class="form-control" formControlName="status" id="status" />
-          </div>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

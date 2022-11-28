@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
+import { IbookForm } from '../../interface/ibook-form';
 import { Book } from '../../model/book';
 import { HotelService } from '../../service/hotel-service.service';
 
@@ -9,8 +10,9 @@ import { HotelService } from '../../service/hotel-service.service';
   templateUrl: './booked-form.component.html',
   styleUrls: ['./booked-form.component.scss']
 })
-export class BookedFormComponent implements OnInit{
-  bookings: Book[] = []
+export class BookedFormComponent implements OnInit, IbookForm{
+
+  booking?: Book | undefined;
 
   constructor(
     private hotelService: HotelService,
@@ -19,13 +21,12 @@ export class BookedFormComponent implements OnInit{
   ) { }
 
   // form group reservation
-  bookingForm: FormGroup = new FormGroup({
+  bookingGroup: FormGroup = new FormGroup({
     id: new FormControl(),
-    status: new FormControl('', [Validators.required]),
+    status: new FormControl('reserved'),
     roomNumber: new FormControl('', [Validators.required]),
     duration: new FormControl('', [Validators.required]),
     guestCount: new FormControl('', [Validators.required]),
-    guestId: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required])
@@ -33,13 +34,13 @@ export class BookedFormComponent implements OnInit{
 
   // validation
   isFormValid(bookingField: string): boolean {
-    const control: AbstractControl = this.bookingForm.get(bookingField) as AbstractControl
+    const control: AbstractControl = this.bookingGroup.get(bookingField) as AbstractControl
     return(control && control.invalid && (control.dirty || control.touched))
   }
 
   // submit form
-  onSubmit() {
-    const { id, status, roomNumber, duration, guestCount, name, email, phone } = this.bookingForm.value
+  onSubmitReservation() {
+    const { id, status, roomNumber, duration, guestCount, name, email, phone } = this.bookingGroup.value
     // console.log(id, status, roomNumber, duration, guestCount, name, email, phone)   
     this.hotelService.save({
       id,
@@ -54,8 +55,12 @@ export class BookedFormComponent implements OnInit{
         phone: phone
       }
     }).subscribe()
-    // this.bookingForm.reset()
+    this.onFormReset()
     this.router.navigateByUrl('guest-book')
+  }
+
+  onFormReset(){
+    this.bookingGroup.reset()
   }
 
   ngOnInit() {

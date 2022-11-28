@@ -7,30 +7,31 @@
           <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Full Name</th>
-                  <th scope="col">Room Number</th>
-                  <th scope="col">Duration</th>
-                  <th scope="col">Guest Count</th>
-                  <th class="col">Email</th>
-                  <th class="col">Phone</th>
+                  <th scope="col">BookingID</th>
+                  <th scope="col">Nama Pemesan</th>
+                  <th scope="col">Nomor Kamar</th>
+                  <th scope="col">Durasi Menginap</th>
+                  <th class="col">Total Biaya</th>
+                  <th scope="col">Jumlah Tamu</th>
                   <th class="col">Status</th>
-                  <th class="col">Action</th>
+                  <th class="col">Aksi</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let booking of bookings">
-                  <th scope="row">{{ booking.id }}</th>
+                  <th scope="row" class="text-center">{{ booking.id }}</th>
                   <td>{{ booking.reservee.name }}</td>
-                  <td>{{ booking.roomNumber }}</td>
-                  <td>{{ booking.duration }}</td>
-                  <td>{{ booking.guestCount }}</td>
-                  <td>{{ booking.reservee.email }}</td>
-                  <td>{{ booking.reservee.phone }}</td>
+                  <td class="text-center">{{ booking.roomNumber }}</td>
+                  <td class="text-center">{{ booking.duration }} Malam</td>
+                  <td>Rp100.000,00</td>
+                  <td class="text-center">{{ booking.guestCount }} Orang</td>
                   <td>{{ booking.status }}</td>
                   <td>
+                      <button class="btn btn-primary" (click)="onCheckIn(booking)">checkin</button>
+                      <button class="btn btn-primary ms-2" (click)="onCheckOut(booking)">checkout</button> <br>
                       <button
                           class="btn btn-link btn-sm float-center"
+                          (click)="onDeleteReservation(booking.id)"
                       >
                           <i class="bi bi-trash"></i>
                       </button>

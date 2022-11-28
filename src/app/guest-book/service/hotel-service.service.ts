@@ -9,6 +9,7 @@ export class HotelService {
 
   // variabel penampung data reservasi
   private bookings: Book[] = []
+  private booking!: Book
 
   // variabel storage
   private storage: Storage = sessionStorage
@@ -79,6 +80,17 @@ export class HotelService {
     })
   }
 
+  // get by id
+  get(id: number): Observable<Book>{
+    return new Observable<Book>((observer: Observer<Book>) => {
+      try {
+        observer.next(this.bookings.find((b) => b.id == id) as Book)
+      } catch (error: any) {
+        observer.error(error.message)
+      }
+    })
+  }
+
   // simpan data
   save(booking: Book): Observable<void>{
     return new Observable<void>((observer: Observer<void>): void => {
@@ -99,6 +111,48 @@ export class HotelService {
         observer.next()
       } catch (error: any) {
         observer.error(error.message)      
+      }
+    })
+  }
+
+  checkIn(booking: Book): Observable<void> {
+    return new Observable<void>((observer: Observer<void>) => {
+      try {
+        booking.status = 'checked-in'
+        this.save(booking)
+        observer.next()
+      } catch (error: any) {
+        observer.error(error.message)
+      }
+    })
+  }
+
+  checkOut(booking: Book): Observable<void> {
+    return new Observable<void>((observer: Observer<void>) => {
+      try {
+        booking.status = 'checked-out'
+        this.save(booking)
+        observer.next()
+      } catch (error: any) {
+        observer.error(error.message)
+      }
+    })
+  }
+
+  // delete data
+  remove(bookingId: number): Observable<void>{
+    return new Observable<void>((observer: Observer<void>): void => {
+      try {
+        for(let i = 0; i < this.bookings.length; i++) {
+          if(this.bookings[i].id === bookingId) {
+            this.bookings.splice(i, 1)
+            this.setToStorage()
+            observer.next()
+          }
+        } 
+      }
+      catch (error: any) {
+        observer.error(error.message)
       }
     })
   }
