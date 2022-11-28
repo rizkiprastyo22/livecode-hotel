@@ -6,6 +6,7 @@ import { BookedFormComponent } from './components/booked-form/booked-form.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GuestBookRoutingModule } from './guest-book-routing';
 import { HotelService } from './service/hotel-service.service';
+import { SharedModule } from '../shared/shared.module';
 
 const components = [
   GuestBookComponent,
@@ -18,6 +19,7 @@ const components = [
   imports: [
     CommonModule,
     GuestBookRoutingModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule
   ],

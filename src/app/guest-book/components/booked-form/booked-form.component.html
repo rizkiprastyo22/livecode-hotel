@@ -2,29 +2,36 @@
   <div class="card-body">
     <form [formGroup]="bookingGroup" (ngSubmit)="onSubmitReservation()">
       <div class="input-group">
+        <!-- gagal pake [readonly]="booking.id" -->
         <div class="mb-3 w-100">
             <label for="guestName" class="form-label">Guest Name</label>
-            <input type="text" class="form-control" formControlName="name" id="guestName" [readonly]="booking.id"/>
+            <input type="text" class="form-control" formControlName="name" id="guestName" [ngClass]="{ 'is-invalid': isFormValid('name') }"/>
+            <app-validation-message [control]="bookingGroup.get('name')" [field]="'booking'"></app-validation-message>
         </div>
         <div class="mb-3 w-100">
           <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" formControlName="email" id="email" [readonly]="booking.id"/>
+          <input type="email" class="form-control" formControlName="email" id="email" [ngClass]="{ 'is-invalid': isFormValid('email') }"/>
+          <app-validation-message [control]="bookingGroup.get('email')" [field]="'booking'"></app-validation-message>
         </div>
         <div class="mb-3 w-100">
           <label for="phone" class="form-label">Phone</label>
-          <input type="text" class="form-control" formControlName="phone" id="phone" [readonly]="booking.id"/>
+          <input type="text" class="form-control" formControlName="phone" id="phone" [ngClass]="{ 'is-invalid': isFormValid('phone') }"/>
+          <app-validation-message [control]="bookingGroup.get('phone')" [field]="'booking'"></app-validation-message>
         </div>
         <div class="mb-3 w-100">
           <label for="roomNumber" class="form-label">Room Number</label>
-          <input type="text" class="form-control" formControlName="roomNumber" id="roomNumber" />
+          <input type="text" class="form-control" formControlName="roomNumber" id="roomNumber" [ngClass]="{ 'is-invalid': isFormValid('roomNumber') }" />
+          <app-validation-message [control]="bookingGroup.get('roomNumber')" [field]="'booking'"></app-validation-message>
         </div>
         <div class="mb-3 w-100">
           <label for="duration" class="form-label">Duration</label>
-          <input type="number" class="form-control" formControlName="duration" id="duration" />
+          <input type="number" class="form-control" formControlName="duration" id="duration" [ngClass]="{ 'is-invalid': isFormValid('duration') }" />
+          <app-validation-message [control]="bookingGroup.get('duration')" [field]="'booking'"></app-validation-message>
         </div>
         <div class="mb-3 w-100">
             <label for="guestCount" class="form-label">Guest Count</label>
-            <input type="number" class="form-control" formControlName="guestCount" id="guestCount" [readonly]="booking.id" />
+            <input type="number" class="form-control" formControlName="guestCount" id="guestCount" [ngClass]="{ 'is-invalid': isFormValid('guestCount') }" />
+            <app-validation-message [control]="bookingGroup.get('guestCount')" [field]="'booking'"></app-validation-message>
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>

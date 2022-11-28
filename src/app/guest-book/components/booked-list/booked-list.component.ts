@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IbookList } from '../../interface/ibook-list';
 import { Book } from '../../model/book';
 import { HotelService } from '../../service/hotel-service.service';
+import { NIGHTLY_FEE } from 'src/app/shared/utils/nightlyFee';
 
 @Component({
   selector: 'app-booked-list',
@@ -11,6 +12,8 @@ import { HotelService } from '../../service/hotel-service.service';
 export class BookedListComponent implements OnInit, IbookList{
 
   bookings: Book[] = []
+
+  NIGHTLY_FEE = NIGHTLY_FEE
 
   constructor(
     private hotelService: HotelService

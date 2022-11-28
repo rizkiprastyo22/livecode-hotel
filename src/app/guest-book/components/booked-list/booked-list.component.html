@@ -23,7 +23,7 @@
                   <td>{{ booking.reservee.name }}</td>
                   <td class="text-center">{{ booking.roomNumber }}</td>
                   <td class="text-center">{{ booking.duration }} Malam</td>
-                  <td>Rp100.000,00</td>
+                  <td>Rp{{ NIGHTLY_FEE.R301 * booking.duration }}</td>
                   <td class="text-center">{{ booking.guestCount }} Orang</td>
                   <td>{{ booking.status }}</td>
                   <td>

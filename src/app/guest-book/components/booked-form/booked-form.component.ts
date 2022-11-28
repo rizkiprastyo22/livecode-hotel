@@ -43,12 +43,12 @@ export class BookedFormComponent implements OnInit, IbookForm{
   bookingGroup: FormGroup = new FormGroup({
     id: new FormControl(),
     status: new FormControl('reserved'),
-    roomNumber: new FormControl('', [Validators.required]),
-    duration: new FormControl('', [Validators.required]),
-    guestCount: new FormControl('', [Validators.required]),
+    roomNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
+    duration: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
+    guestCount: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
     name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required])
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phone: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")])
   })
 
   // validation
