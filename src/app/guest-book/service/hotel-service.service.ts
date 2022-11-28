@@ -119,6 +119,7 @@ export class HotelService {
       try {
         booking.status = 'checked-in'
         this.save(booking)
+        alert(`Tamu ${booking.reservee.name} sudah check-in pada kamar ${booking.roomNumber}.`)
         observer.next()
       } catch (error: any) {
         observer.error(error.message)
@@ -130,6 +131,7 @@ export class HotelService {
     return new Observable<void>((observer: Observer<void>) => {
       try {
         booking.status = 'checked-out'
+        alert(`Tamu ${booking.reservee.name} sudah check-out dari kamar ${booking.roomNumber}.`)
         this.save(booking)
         observer.next()
       } catch (error: any) {
@@ -144,7 +146,12 @@ export class HotelService {
       try {
         for(let i = 0; i < this.bookings.length; i++) {
           if(this.bookings[i].id === bookingId) {
-            this.bookings.splice(i, 1)
+            if(this.bookings[i].status !== 'checked-out'){
+              alert(`Data pemesanan tidak dapat di hapus karena tamu ${this.bookings[i].reservee.name} belum checkout.`)
+            }
+            else{
+              this.bookings.splice(i, 1)
+            }
             this.setToStorage()
             observer.next()
           }
