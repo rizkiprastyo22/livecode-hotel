@@ -1,50 +1,47 @@
 <div class="shadow-sm p-3 mb-5 bg-body rounded">
+  <!-- <form [formGroup]="guestForm" (ngSubmit)="onGuestSubmit()">
+    <div class="input-group">
+      <div class="mb-3 w-100">
+          <label for="guestName" class="form-label">Guest Name</label>
+          <input type="text" class="form-control" formControlName="name" id="guestName" />
+      </div>
+      <button type="submit" class="btn btn-primary">Search Guest Name</button>
+    </div>
+  </form> -->
   <div class="card-body">
-    <form>
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
       <div class="input-group">
+        <!-- <div class="mb-3 w-100">
+          <label for="guestId" class="form-label">Guest ID</label>
+          <input type="number" class="form-control" formControlName="guestId" id="guestId" readonly/>
+        </div> -->
         <div class="mb-3 w-100">
-          <label for="name" class="form-label">Full Name</label>
-          <input type="text" class="form-control" id="name" />
+            <label for="guestName" class="form-label">Guest Name</label>
+            <input type="text" class="form-control" formControlName="name" id="guestName"/>
         </div>
         <div class="mb-3 w-100">
           <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" />
+          <input type="email" class="form-control" formControlName="email" id="email"/>
         </div>
         <div class="mb-3 w-100">
           <label for="phone" class="form-label">Phone</label>
-          <input type="text" class="form-control" id="phone" />
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-</div>
-
-<h2>Reservation Form</h2>
-
-<div class="shadow-sm p-3 mb-5 bg-body rounded">
-  <div class="card-body">
-    <form>
-      <div class="input-group">
-        <div class="mb-3 w-100">
-            <label for="guestName" class="form-label">Guest Name</label>
-            <input type="text" class="form-control" id="guestName" />
+          <input type="text" class="form-control" formControlName="phone" id="phone"/>
         </div>
         <div class="mb-3 w-100">
           <label for="roomNumber" class="form-label">Room Number</label>
-          <input type="text" class="form-control" id="roomNumber" />
+          <input type="text" class="form-control" formControlName="roomNumber" id="roomNumber" />
         </div>
         <div class="mb-3 w-100">
           <label for="duration" class="form-label">Duration</label>
-          <input type="number" class="form-control" id="duration" />
+          <input type="number" class="form-control" formControlName="duration" id="duration" />
         </div>
         <div class="mb-3 w-100">
             <label for="guestCount" class="form-label">Guest Count</label>
-            <input type="number" class="form-control" id="guestCount" />
+            <input type="number" class="form-control" formControlName="guestCount" id="guestCount" />
         </div>
         <div class="mb-3 w-100">
             <label for="status" class="form-label">Status</label>
-            <input type="text" class="form-control" id="status" />
+            <input type="text" class="form-control" formControlName="status" id="status" />
           </div>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>

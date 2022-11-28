@@ -15,6 +15,7 @@ export class HotelService {
 
   constructor() {}
 
+  // tampil semua
   list(): Observable<Book[]>{
     return new Observable<Book[]>((observer: Observer<Book[]>) => {
       const sessionBookings = this.storage.getItem(BOOK) as string
@@ -29,7 +30,7 @@ export class HotelService {
               guestCount: 2, // jumlah tamu yang menginap dalam 1 kamar
               reservee: 
               {
-                id: 1,
+                // id: 1,
                 name: 'Rizki Prastyo',
                 email: 'rizki@gmail.com',
                 phone: '082784728736'
@@ -43,7 +44,7 @@ export class HotelService {
               guestCount: 2, // jumlah tamu yang menginap dalam 1 kamar
               reservee: 
               {
-                id: 1,
+                // id: 1,
                 name: 'Rizki Prastyo',
                 email: 'rizki@gmail.com',
                 phone: '082784728736'
@@ -57,7 +58,7 @@ export class HotelService {
               guestCount: 2, // jumlah tamu yang menginap dalam 1 kamar
               reservee: 
               {
-                id: 1,
+                // id: 1,
                 name: 'Rizki Prastyo',
                 email: 'rizki@gmail.com',
                 phone: '082784728736'
@@ -74,6 +75,30 @@ export class HotelService {
         this.setToStorage()
       } catch (error: any) {
         observer.error(error.message)
+      }
+    })
+  }
+
+  // simpan data
+  save(booking: Book): Observable<void>{
+    return new Observable<void>((observer: Observer<void>): void => {
+      try {
+        // console.log('data booking baru: ', booking);      
+        if(booking.id){
+          this.bookings = this.bookings.map((m) => {
+            if(m.id === booking.id) m = booking
+              return booking
+            }         
+          )
+        }
+        else{
+          booking.id = this.bookings.length + 1
+          this.bookings.push(booking)
+        }
+        this.setToStorage()
+        observer.next()
+      } catch (error: any) {
+        observer.error(error.message)      
       }
     })
   }

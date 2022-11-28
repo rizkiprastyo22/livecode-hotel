@@ -19,7 +19,7 @@ export class BookedListComponent implements OnInit{
     this.hotelService.list().subscribe({
       next: (bookings: Book[]) => {
         this.bookings = bookings
-        console.log('isi bookings: ', this.bookings)   
+        // console.log('isi bookings: ', this.bookings)   
       }
     })
   }
