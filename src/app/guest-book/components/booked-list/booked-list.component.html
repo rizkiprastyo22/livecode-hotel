@@ -1,0 +1,51 @@
+<!-- <div class="spinner-border" role="status">
+  <span class="sr-only"></span>
+</div> -->
+<ul class="list-group">
+    <li class="list-group-item">
+      <div class="form-check">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Room Number</th>
+                  <th scope="col">Duration</th>
+                  <th scope="col">Guest Count</th>
+                  <th class="col">Email</th>
+                  <th class="col">Phone</th>
+                  <th class="col">Status</th>
+                  <th class="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let booking of bookings">
+                  <th scope="row">{{ booking.id }}</th>
+                  <td>{{ booking.reservee.name }}</td>
+                  <td>{{ booking.roomNumber }}</td>
+                  <td>{{ booking.duration }}</td>
+                  <td>{{ booking.guestCount }}</td>
+                  <td>{{ booking.reservee.email }}</td>
+                  <td>{{ booking.reservee.phone }}</td>
+                  <td>{{ booking.status }}</td>
+                  <td>
+                      <button
+                          class="btn btn-link btn-sm float-center"
+                      >
+                          <i class="bi bi-trash"></i>
+                      </button>
+                      <button 
+                            class="btn btn-link btn-sm float-center"
+                      >
+                          <i
+                          class="bi bi-pencil-square"
+                          ></i>
+                      </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+    </li>
+  </ul>
+  
