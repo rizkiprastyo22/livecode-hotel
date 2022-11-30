@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
+import { NIGHTLY_FEE } from 'src/app/shared/utils/nightlyFee';
 import { BOOK, Book } from '../model/book';
 
 @Injectable({
@@ -84,7 +85,7 @@ export class HotelService {
   get(id: number): Observable<Book>{
     return new Observable<Book>((observer: Observer<Book>) => {
       try {
-        observer.next(this.bookings.find((b) => b.id == id) as Book)
+        observer.next(this.bookings.find((b) => b.id == id) as Book) // penggunaan satu line kode ini saja hanya berlaku kalo cuma 1 page, kalo multipage harus ambil data dari session storage lagi
       } catch (error: any) {
         observer.error(error.message)
       }
@@ -105,6 +106,7 @@ export class HotelService {
         else{
           booking.id = this.bookings.length + 1
           this.bookings.push(booking)
+          alert(`Tamu ${booking.reservee.name} telah melakukan pemesanan untuk kamar ${booking.roomNumber} selama ${booking.duration} malam dengan total tagihan sebesar Rp${NIGHTLY_FEE.R301}.`)
         }
         this.setToStorage()
         observer.next()

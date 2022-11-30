@@ -1,53 +1,78 @@
 <!-- <div class="spinner-border" role="status">
   <span class="sr-only"></span>
 </div> -->
+<ng-container *ngIf="!onLoggedIn(); else isLoggedIn">
+  <button
+    type="button"
+    class="btn btn-primary btn-light login"
+    routerLink="/auth/login"
+  >
+    LOGIN
+  </button>
+</ng-container>
+<ng-template #isLoggedIn>
+  <button
+    type="button"
+    class="btn btn-primary btn-light login"
+    (click)="onLoggedOut()"
+  >
+    LOGOUT
+  </button>
+</ng-template>
+
 <ul class="list-group">
-    <li class="list-group-item">
-      <div class="form-check">
-          <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">BookingID</th>
-                  <th scope="col">Nama Pemesan</th>
-                  <th scope="col">Nomor Kamar</th>
-                  <th scope="col">Durasi Menginap</th>
-                  <th class="col">Total Biaya</th>
-                  <th scope="col">Jumlah Tamu</th>
-                  <th class="col">Status</th>
-                  <th class="col">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let booking of bookings">
-                  <th scope="row" class="text-center">{{ booking.id }}</th>
-                  <td>{{ booking.reservee.name }}</td>
-                  <td class="text-center">{{ booking.roomNumber }}</td>
-                  <td class="text-center">{{ booking.duration }} Malam</td>
-                  <td>Rp{{ NIGHTLY_FEE.R301 * booking.duration }}</td>
-                  <td class="text-center">{{ booking.guestCount }} Orang</td>
-                  <td>{{ booking.status }}</td>
-                  <td>
-                      <button class="btn btn-primary" (click)="onCheckIn(booking)">checkin</button>
-                      <button class="btn btn-primary ms-2" (click)="onCheckOut(booking)">checkout</button> <br>
-                      <button
-                          class="btn btn-link btn-sm float-center"
-                          (click)="onDeleteReservation(booking.id)"
-                      >
-                          <i class="bi bi-trash"></i>
-                      </button>
-                      <button 
-                            class="btn btn-link btn-sm float-center"
-                            routerLink="/guest-book/{{ booking.id }}"
-                      >
-                          <i
-                          class="bi bi-pencil-square"
-                          ></i>
-                      </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-      </div>
-    </li>
-  </ul>
-  
+  <li class="list-group-item">
+    <div class="form-check">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">BookingID</th>
+            <th scope="col">Nama Pemesan</th>
+            <th scope="col">Nomor Kamar</th>
+            <th scope="col">Durasi Menginap</th>
+            <th class="col">Total Biaya</th>
+            <th scope="col">Jumlah Tamu</th>
+            <th class="col">Status</th>
+            <th class="col">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings">
+            <th scope="row" class="text-center">{{ booking.id }}</th>
+            <td>{{ booking.reservee.name }}</td>
+            <td class="text-center">{{ booking.roomNumber }}</td>
+            <td class="text-center">{{ booking.duration }} Malam</td>
+            <td>Rp{{ NIGHTLY_FEE.R301 * booking.duration }}</td>
+            <td class="text-center">{{ booking.guestCount }} Orang</td>
+            <td>{{ booking.status }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="onCheckIn(booking.id)">
+                checkin
+              </button>
+              <button
+                class="btn btn-primary ms-2"
+                (click)="onCheckOut(booking.id)"
+              >
+                checkout
+              </button>
+              <br />
+              <button
+                class="btn btn-link btn-sm float-center"
+                (click)="onDeleteReservation(booking.id)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+              <button
+                class="btn btn-link btn-sm float-center"
+                routerLink="/guest-book/{{ booking.id }}"
+                [ngClass]="{ 'visually-hidden': booking.status != 'reserved' }"
+              >
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </li>
+</ul>

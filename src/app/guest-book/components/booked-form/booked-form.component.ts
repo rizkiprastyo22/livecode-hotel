@@ -13,6 +13,7 @@ import { HotelService } from '../../service/hotel-service.service';
 export class BookedFormComponent implements OnInit, IbookForm{
 
   booking!: Book;
+  readonly: boolean = false
 
   constructor(
     private hotelService: HotelService,
@@ -43,7 +44,7 @@ export class BookedFormComponent implements OnInit, IbookForm{
   bookingGroup: FormGroup = new FormGroup({
     id: new FormControl(),
     status: new FormControl('reserved'),
-    roomNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
+    roomNumber: new FormControl('', [Validators.required]),
     duration: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
     guestCount: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
     name: new FormControl('', [Validators.required]),
@@ -62,7 +63,7 @@ export class BookedFormComponent implements OnInit, IbookForm{
       this.bookingGroup.controls['id']?.setValue(booking.id)
       this.bookingGroup.controls['status']?.setValue(booking.status)
       this.bookingGroup.controls['roomNumber']?.setValue(booking.roomNumber)
-      this.bookingGroup.controls['duration']?.setValue(booking.duration)
+      this.bookingGroup.get(['duration'])?.setValue(booking.duration) // pakai cara ini biar kita ga destructive
       this.bookingGroup.controls['guestCount']?.setValue(booking.guestCount)
       this.bookingGroup.controls['name']?.setValue(booking.reservee.name)
       this.bookingGroup.controls['email']?.setValue(booking.reservee.email)
@@ -74,26 +75,36 @@ export class BookedFormComponent implements OnInit, IbookForm{
   onSubmitReservation() {
     const { id, status, roomNumber, duration, guestCount, name, email, phone } = this.bookingGroup.value
     // console.log(id, status, roomNumber, duration, guestCount, name, email, phone)   
-    this.hotelService.save({
-      id,
-      status,
-      roomNumber,
-      duration,
-      guestCount,
-      reservee:
-      {
-        id: 1,
-        name: name,
-        email: email,
-        phone: phone
-      }
-    }).subscribe()
-    this.onFormReset()
+    if(roomNumber && (duration > 0) && (guestCount > 0) && name && this.emailValidation(email) && phone){
+      this.hotelService.save({
+        id,
+        status,
+        roomNumber,
+        duration,
+        guestCount,
+        reservee:
+        {
+          id: 1,
+          name: name,
+          email: email,
+          phone: phone
+        }
+      }).subscribe()
+      this.onFormReset()
+    } else{
+      alert('data harus diisi dengan benar')
+    }
     this.router.navigateByUrl('guest-book')
   }
 
   onFormReset(){
     this.bookingGroup.reset()
+  }
+
+  emailValidation(email: any): boolean{
+    return (email).toLowerCase().match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    )
   }
 
 
