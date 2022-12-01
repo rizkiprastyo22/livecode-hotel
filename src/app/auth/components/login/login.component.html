@@ -12,15 +12,15 @@
                 <input
                   type="text"
                   class="form-control"
-                  [ngClass]="{ 'is-invalid': isFormValid('username') }"
+                  [ngClass]="{ 'is-invalid': isFormValid('email') }"
                   id="floatingInput"
-                  placeholder="Username"
-                  formControlName="username"
+                  placeholder="Email Address"
+                  formControlName="email"
                 />
-                <label for="floatingInput">Username</label>
+                <label for="floatingInput">Email Address</label>
                 <app-validation-message
-                  [control]="loginForm.get('username')"
-                  [field]="'username'"
+                  [control]="loginForm.get('email')"
+                  [field]="'email'"
                 ></app-validation-message>
               </div>
               <div class="form-floating">
@@ -43,7 +43,7 @@
                     id="exampleCheck1"
                   />
                   <label class="form-check-label" for="exampleCheck1"
-                    >Reminder Me</label
+                    >Remember Me</label
                   >
                 </div>
               </div>
